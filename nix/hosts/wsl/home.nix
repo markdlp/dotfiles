@@ -3,7 +3,7 @@
 {
   home.username = "mark";
   home.homeDirectory = "/home/mark";
-  home.stateVersion = "23.11"; # Do not change this, even in the future!
+  home.stateVersion = "24.05";
 
   # Here is where you add your packages
   home.packages = with pkgs; [

@@ -1,0 +1,38 @@
+Host myHair
+  HostName snf-889095.vm.okeanos.grnet.gr
+  User mark
+  ForwardAgent yes
+  Port 4994
+  IdentityFile C:\Users\mark\.ssh\id_myHair
+
+Host zafora
+  HostName pleiades.ece.uowm.gr
+  User ece01316
+  IdentityFile C:\Users\mark\.ssh\id_zafora
+
+Host mySkull
+  HostName mySkull.local
+  User mark
+  ForwardAgent yes
+  PreferredAuthentications publickey
+  IdentityFile C:\Users\mark\.ssh\id_mySkull
+
+Host myWaist
+  HostName marksWaist.local
+  User mark
+  ForwardAgent yes
+  PreferredAuthentications publickey
+  IdentityFile C:\Users\mark\.ssh\id_myWaist
+
+Host github.com
+  User git
+  Hostname github.com
+  PreferredAuthentications publickey
+  IdentityFile C:\Users\mark\.ssh\id_gh_win
+
+Host aspire
+  ForwardAgent yes
+  User mark
+  HostName srv.aspire.uowm.gr
+  PreferredAuthentications publickey
+  IdentityFile C:\Users\mark\.ssh\id_aspire
