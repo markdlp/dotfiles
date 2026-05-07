@@ -199,6 +199,21 @@
         numpy
       ];
     })
+
+    # Manually re-create the missing Desktop Entry
+    (makeDesktopItem {
+      name = "gnuradio-companion";
+      desktopName = "GNU Radio Companion";
+      exec = "gnuradio-companion";
+      icon = "gnuradio-grc";
+      comment = "Software Defined Radio framework";
+      categories = [
+        "Development"
+        "Engineering"
+        "Science"
+      ];
+      startupWMClass = "gnuradio-companion"; # Helps GNOME match the running window to the icon!
+    })
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
