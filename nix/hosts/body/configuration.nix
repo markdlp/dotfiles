@@ -43,6 +43,12 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
+  # Enable the standard Docker daemon
+  virtualisation.docker.enable = true;
+
+  # Enable the NVIDIA Container Toolkit for GPU pass-through
+  hardware.nvidia-container-toolkit.enable = true;
+
   # Set your time zone.
   time.timeZone = "Europe/Athens";
 
@@ -104,6 +110,7 @@
       "networkmanager"
       "wheel"
       "libvirtd"
+      "docker"
     ];
     packages = with pkgs; [
       git
