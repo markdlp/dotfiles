@@ -2,14 +2,19 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../modules/nvidia.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../modules/nvidia.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -22,15 +27,18 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-	# Enable dconf (Required for virt-manager to save settings)
-	  programs.dconf.enable = true;
-	
-	  # Enable libvirt (QEMU/KVM)
-	  virtualisation.libvirtd.enable = true;
-	  programs.virt-manager.enable = true;
+  # Enable dconf (Required for virt-manager to save settings)
+  programs.dconf.enable = true;
 
-	# Enable flakes and the new 'nix' command line tool system-wide
-	  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # Enable libvirt (QEMU/KVM)
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
+
+  # Enable flakes and the new 'nix' command line tool system-wide
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -92,17 +100,20 @@
   users.users.mark = {
     isNormalUser = true;
     description = "Markos Delaportas";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd"];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "libvirtd"
+    ];
     packages = with pkgs; [
-	git
-	gh
-	kitty
-	micro
-	nixfmt
-	unzip
-	zip
-	freecad
-	gnuradio
+      git
+      gh
+      kitty
+      micro
+      nixfmt
+      unzip
+      zip
+      freecad
     ];
   };
 
@@ -114,13 +125,17 @@
     nativeMessagingHosts.packages = [ pkgs.firefoxpwa ];
   };
 
-# Enable Zsh and Oh-My-Zsh
+  # Enable Zsh and Oh-My-Zsh
   programs.zsh = {
     enable = true;
     ohMyZsh = {
       enable = true;
       theme = "random"; # A popular theme that utilizes Meslo fonts perfectly
-      plugins = [ "git" "sudo" "docker" ];
+      plugins = [
+        "git"
+        "sudo"
+        "docker"
+      ];
     };
   };
 
@@ -132,25 +147,27 @@
     meslo-lgs-nf
   ];
 
-# Declaratively configure GNOME settings
-  programs.dconf.profiles.user.databases = [{
-    settings = {
-      "org/gnome/desktop/interface" = {
-            icon-theme = "Papirus-Dark"; # Or just "Papirus" for the light version
+  # Declaratively configure GNOME settings
+  programs.dconf.profiles.user.databases = [
+    {
+      settings = {
+        "org/gnome/desktop/interface" = {
+          icon-theme = "Papirus-Dark"; # Or just "Papirus" for the light version
+        };
+        "org/gnome/shell" = {
+          disable-user-extensions = false;
+          # Enable the Dash to Panel extension
+          enabled-extensions = [ "dash-to-panel@jderose9.github.com" ];
+        };
+        "org/gnome/shell/extensions/dash-to-panel" = {
+          # Put the panel at the bottom
+          panel-position = "BOTTOM";
+          # Disable auto-hide (intellihide)
+          intellihide = false;
+        };
       };
-      "org/gnome/shell" = {
-        disable-user-extensions = false;
-        # Enable the Dash to Panel extension
-        enabled-extensions = [ "dash-to-panel@jderose9.github.com" ];
-      };
-      "org/gnome/shell/extensions/dash-to-panel" = {
-        # Put the panel at the bottom
-        panel-position = "BOTTOM";
-        # Disable auto-hide (intellihide)
-        intellihide = false;
-      };
-    };
-  }];
+    }
+  ];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -158,21 +175,30 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
 
-	thunderbird
+    thunderbird
     wget
     firefoxpwa
-	neovim
-	vscode
-	gnomeExtensions.dash-to-panel	
+    neovim
+    vscode
+    gnomeExtensions.dash-to-panel
 
-	spotify
+    spotify
     papirus-icon-theme
     prismlauncher
     jetbrains-toolbox
     zotero
     bitwarden-desktop
+
+    (gnuradio.override {
+      extraPackages = with gnuradioPackages; [
+        osmosdr
+      ];
+      extraPythonPackages = with gnuradio.python.pkgs; [
+        numpy
+      ];
+    })
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
