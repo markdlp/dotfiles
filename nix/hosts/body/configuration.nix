@@ -11,11 +11,6 @@
       ../../modules/nvidia.nix
     ];
 
-	# Apply the nix-matlab overlay so your system knows what 'pkgs.matlab' is
-	  nixpkgs.overlays = [
-	    inputs.nix-matlab.overlay
-	  ];
-
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -26,6 +21,9 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+	# Enable flakes and the new 'nix' command line tool system-wide
+	  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -94,6 +92,8 @@
 	kitty
 	micro
 	nixfmt
+	unzip
+	zip
     ];
   };
 
@@ -162,7 +162,6 @@
     jetbrains-toolbox
     zotero
     bitwarden-desktop
-    matlab
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

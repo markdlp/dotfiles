@@ -4,11 +4,6 @@
   inputs = {
     # NixOS package sources
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
-
-	nix-matlab = {
-	      url = "gitlab:doronbehar/nix-matlab";
-	      inputs.nixpkgs.follows = "nixpkgs";
-	};
     
     # Home Manager (Used for WSL)
     home-manager = {
