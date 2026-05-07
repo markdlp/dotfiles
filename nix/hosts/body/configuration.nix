@@ -22,6 +22,13 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
+	# Enable dconf (Required for virt-manager to save settings)
+	  programs.dconf.enable = true;
+	
+	  # Enable libvirt (QEMU/KVM)
+	  virtualisation.libvirtd.enable = true;
+	  programs.virt-manager.enable = true;
+
 	# Enable flakes and the new 'nix' command line tool system-wide
 	  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -85,7 +92,7 @@
   users.users.mark = {
     isNormalUser = true;
     description = "Markos Delaportas";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd"];
     packages = with pkgs; [
 	git
 	gh
