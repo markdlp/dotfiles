@@ -94,8 +94,12 @@
 	nixfmt
 	unzip
 	zip
+	freecad
+	gnuradio
     ];
   };
+
+  environment.etc."xdg/kitty/kitty.conf".source = ./kitty.conf;
 
   programs.firefox = {
     enable = true;
