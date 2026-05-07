@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
@@ -10,6 +10,11 @@
       ./hardware-configuration.nix
       ../../modules/nvidia.nix
     ];
+
+	# Apply the nix-matlab overlay so your system knows what 'pkgs.matlab' is
+	  nixpkgs.overlays = [
+	    inputs.nix-matlab.overlay
+	  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -157,6 +162,7 @@
     jetbrains-toolbox
     zotero
     bitwarden-desktop
+    matlab
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
