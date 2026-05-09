@@ -14,6 +14,7 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ../../modules/nvidia.nix
+    inputs.NixVirt.nixosModules.default
   ];
 
   # Bootloader.
@@ -33,6 +34,31 @@
   # Enable libvirt (QEMU/KVM)
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
+
+  # --- WHONIX KVM CONFIGURATION ---
+  virtualisation.libvirt.swtpm.enable = true;
+  virtualisation.libvirt.connections."qemu:///system" = {
+    networks = [
+      {
+        definition = ./whonix/Whonix_external_network.xml;
+        active = true;
+      }
+      {
+        definition = ./whonix/Whonix_internal_network.xml;
+        active = true;
+      }
+    ];
+    domains = [
+      {
+        definition = ./whonix/Whonix-Gateway.xml;
+        active = true;
+      }
+      {
+        definition = ./whonix/Whonix-Workstation.xml;
+        active = true;
+      }
+    ];
+  };
 
   # Enable flakes and the new 'nix' command line tool system-wide
   nix.settings.experimental-features = [
@@ -111,6 +137,7 @@
       "wheel"
       "libvirtd"
       "docker"
+      "kvm"
     ];
     packages = with pkgs; [
       git
@@ -121,6 +148,7 @@
       unzip
       zip
       freecad
+      obsidian
     ];
   };
 

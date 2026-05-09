@@ -13,6 +13,12 @@
 
     # Flake-parts for the dendritic structure
     flake-parts.url = "github:hercules-ci/flake-parts";
+
+    # NixVirt for declarative KVM management
+    NixVirt = {
+      url = "https://flakehub.com/f/AshleyYakeley/NixVirt/*.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
