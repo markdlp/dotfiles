@@ -1,5 +1,6 @@
 <domain type='kvm'>
   <name>Whonix-Gateway</name>
+  <uuid>c3d4e5f6-3333-4ccc-aaaa-abcdef123456</uuid>
   <description>Do not change any settings if you do not understand the consequences! Learn more: https://www.whonix.org/wiki/KVM#XML_Settings</description>
 
   <genid/>

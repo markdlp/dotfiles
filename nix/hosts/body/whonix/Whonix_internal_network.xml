@@ -1,5 +1,6 @@
 <network>
   <name>Whonix-Internal</name>
+  <uuid>b2c3d4e5-2222-4bbb-9999-abcdef123456</uuid>
   <bridge name='virbr2' stp='on' delay='0'/>
   <dns enable="no"/>
 </network>

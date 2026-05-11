@@ -32,7 +32,7 @@
   programs.dconf.enable = true;
 
   # Enable libvirt (QEMU/KVM)
-  virtualisation.libvirtd.enable = true;
+  virtualisation.libvirt.enable = true;
   programs.virt-manager.enable = true;
 
   # --- WHONIX KVM CONFIGURATION ---
@@ -56,6 +56,16 @@
       {
         definition = ./whonix/Whonix-Workstation.xml;
         active = true;
+      }
+      {
+              definition = inputs.NixVirt.lib.domain.writeXML (inputs.NixVirt.lib.domain.templates.linux {
+                name = "marksHat";
+                uuid = "e5f6a7b8-5555-4eee-cccc-abcdef123456";
+                memory = { count = 4; unit = "GiB"; };
+                bridge_name = "virbr1";
+                storage_vol = /var/lib/libvirt/images/marksHat.qcow2;
+              });
+              active = true;
       }
     ];
   };
@@ -225,6 +235,7 @@
     jetbrains-toolbox
     zotero
     bitwarden-desktop
+    vlc
 
     (gnuradio.override {
       extraPackages = with gnuradioPackages; [

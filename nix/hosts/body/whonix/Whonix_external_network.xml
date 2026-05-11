@@ -1,5 +1,6 @@
 <network>
   <name>Whonix-External</name>
+  <uuid>a1b2c3d4-1111-4aaa-8888-abcdef123456</uuid>
   <forward mode='nat'>
     <nat ipv6='yes'/>
   </forward>
