@@ -10,12 +10,19 @@
       specialArgs = { inherit inputs; };
       
       modules = [
-        # Assuming you renamed the 'nixos' folder to 'body'
         ./body/hardware-configuration.nix
         ./body/configuration.nix
         
-        # When you are ready for the OMEN, you can add your NVIDIA module here:
-        # ../modules/nvidia.nix
+        ../modules/nvidia.nix
+      ];
+    };
+
+    "waist" = inputs.nixpkgs-unstable.lib.nixosSystem {
+      system = "aarch64-linux";
+      specialArgs = { inherit inputs; };
+      modules = [
+        ./waist/hardware-configuration.nix
+        ./waist/configuration.nix
       ];
     };
   };
