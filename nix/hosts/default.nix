@@ -23,6 +23,8 @@
       modules = [
         ./waist/hardware-configuration.nix
         ./waist/configuration.nix
+
+        inputs.nixos-hardware.nixosModules.raspberry-pi-4
       ];
     };
   };

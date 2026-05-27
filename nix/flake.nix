@@ -2,11 +2,11 @@
   description = "Mark's Unified System Configurations";
 
   inputs = {
-    # NixOS package sources (Existing stable branch for WSL/etc)
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11"; 
 
-    # NEW: Unstable branch specifically for the Raspberry Pi 4
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     # Home Manager (Used for WSL)
     home-manager = {

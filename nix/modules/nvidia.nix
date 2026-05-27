@@ -20,7 +20,7 @@
     # Fine-grained power management turns off the GPU completely when not in use.
     # Set to true if you want maximum battery, but false is generally more stable 
     # depending on your specific Turing/Ampere card. Start with false.
-    powerManagement.finegrained = false;
+    powerManagement.finegrained = true;
 
     # Use the proprietary drivers. The open-source modules are improving, 
     # but the proprietary ones are still required for absolute stability.

@@ -51,24 +51,31 @@
     domains = [
       {
         definition = ./whonix/Whonix-Gateway.xml;
-        active = true;
+        active = false;
       }
       {
         definition = ./whonix/Whonix-Workstation.xml;
-        active = true;
+        active = false;
       }
       {
-              definition = inputs.NixVirt.lib.domain.writeXML (inputs.NixVirt.lib.domain.templates.linux {
-                name = "marksHat";
-                uuid = "e5f6a7b8-5555-4eee-cccc-abcdef123456";
-                memory = { count = 4; unit = "GiB"; };
-                bridge_name = "virbr1";
-                storage_vol = /var/lib/libvirt/images/marksHat.qcow2;
-              });
-              active = true;
+        definition = inputs.NixVirt.lib.domain.writeXML (
+          inputs.NixVirt.lib.domain.templates.linux {
+            name = "marksHat";
+            uuid = "e5f6a7b8-5555-4eee-cccc-abcdef123456";
+            memory = {
+              count = 4;
+              unit = "GiB";
+            };
+            bridge_name = "virbr1";
+            storage_vol = /var/lib/libvirt/images/marksHat.qcow2;
+          }
+        );
+        active = false;
       }
     ];
   };
+
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   # Enable flakes and the new 'nix' command line tool system-wide
   nix.settings.experimental-features = [
@@ -184,6 +191,18 @@
     };
   };
 
+  programs.ssh.extraConfig = ''
+    		  Host waist 192.168.1.13
+      	        User mark
+      	        IdentityFile ~/.ssh/id_myWaist
+      	        IdentitiesOnly yes
+       	  
+          Host myHair
+       	    HostName snf-889095.vm.okeanos.grnet.gr
+       	    IdentityFile ~/.ssh/id_myHair
+       	    Port 4994
+       	'';
+
   # Make Zsh your default shell
   users.users.mark.shell = pkgs.zsh;
 
@@ -230,12 +249,19 @@
     gnomeExtensions.dash-to-panel
 
     spotify
+    rpi-imager
+    angryipscanner
     papirus-icon-theme
     prismlauncher
     jetbrains-toolbox
     zotero
     bitwarden-desktop
     vlc
+
+    libreoffice-qt
+    hunspell
+    hunspellDicts.el-gr
+    hunspellDicts.en-gb-large
 
     (gnuradio.override {
       extraPackages = with gnuradioPackages; [

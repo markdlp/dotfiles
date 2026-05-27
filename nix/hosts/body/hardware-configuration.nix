@@ -13,6 +13,17 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
+  boot.kernelParams = [
+    # Force the kernel to use the hardware deep sleep state instead of s2idle
+    "mem_sleep_default=deep"
+    
+    # Prevent the AMD Display Core from timing out on power state switches
+    "amdgpu.dcfeaturemask=0x2"
+    
+    # Mitigate PCIe bus errors caused by the buggy ACPI firmware
+    "pci=nommconf"
+  ];
+
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/8a9f121f-7caa-4d18-a0fb-3e06fb3f4a18";
       fsType = "ext4";
