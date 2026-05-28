@@ -7,8 +7,9 @@ let
   interface = "wlan0";
   
   # Inject your laptop's EXACT id_ed25519.pub string here
-  bodyPubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILwIR/fq0Xuem6iOpcI5A3pkRh5th1DWa475+L3bbz3+ Body2Waist"; 
-  kneesPubKey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC7XZohJ6RvbXJwDolb2kv66xRY9lEk2JYArs3FvNTmqmdXFmKN8mevG0cMm+i0pfY7CXgbQGArRpPIz9daOSH9bwWc/jLdVqKjyLD9VPLXVD1VlCzcCicGSK4GziRbLCiXHabSXCJL/2Wy81hCQyoUqdFls6gOQoyX3qJoIkYLV7Y+fp6OCro2kFpDR8b7TQ4Dx2D4gvr36e35ZbA9cFOGCV3i5oBV2B52ygY0IDyGmNuHOUFS4z2E/P93FsC/SZHV8t28kbnl5g9HugT1Doq2Cy50g0t535wJ/pa+r/PBwBHL5CSvL+V4FnIZ6UlEo1Awj/yZ9Mdk82O1o7G37hk4p6Wx+0LpJIjqumJNOzT89mIGSVkEUaj8oUwtCFZtAI3KTqcx0+o0E1qY+02B9bucZmQcQhEl9oVsGn/tuUNVnjRx1edEPoihYTB6yvC5EyihrEnmihadqmtnenqWy6CM1XcevboMqvmui3JPDJWNYyubdVeQR7J9QSQKgOCLvbE= marksKnees" ;
+  body = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILwIR/fq0Xuem6iOpcI5A3pkRh5th1DWa475+L3bbz3+ Body2Waist"; 
+  knee = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAg1tjtwMp4XNfgvzgfBWLKIaS1ovrHOrYhHp0GPrs90 Knee2Waist";
+  hand = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBMDs/Jo99QLSQaB60GNw+UebJGvs7RTGWSV25maJSwg Hand2Waist";
 in 
 {
   # Import the hardware configuration!
@@ -112,7 +113,7 @@ in
     description = "Markos Delaportas";
     extraGroups = [ "wheel" "docker" ];
     shell = pkgs.zsh;
-    openssh.authorizedKeys.keys = [ bodyPubKey kneesPubKey ];
+    openssh.authorizedKeys.keys = [ body knees hand ];
     hashedPassword = "$6$U70FqpWC8k3ygdTR$/bDSKDzpF7Ttqtl9Yy3qDjJmEq/ZHHS1BIoZgGQS8ZxlGH0jBG/R0kGwHxHLKZSoieWjYbDHvi21G5sIOIKVJ0";
   };
 
