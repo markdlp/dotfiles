@@ -25,15 +25,14 @@ in
   networking = {
     hostName = hostname;
     wireless = {
-      enable = false;
-      
+      enable = true;
       interfaces = [ interface ];
-    
-      # Tell NixOS where to find the secrets locally on the target machine
-      environmentFile = "/root/wireless.env";
       
-      # Use the exact variable names defined in your .env file
-      networks."@WIFI_SSID@".psk = "@WIFI_PSK@";
+      # The new, modern secrets implementation
+      secretsFile = "/root/wireless.env";
+      
+      # Put your actual Wi-Fi name here, and point to the external password
+      networks."Huawei_vtX9Km".pskRaw = "ext:WIFI_PSK";
     };
   };
 
@@ -66,6 +65,7 @@ in
     git
     vim
     tmux
+    gh
 
     # The Permanent Kitty Fix
     kitty.terminfo 
@@ -103,6 +103,17 @@ in
 
   users.users.root = {
       hashedPassword = "$6$U70FqpWC8k3ygdTR$/bDSKDzpF7Ttqtl9Yy3qDjJmEq/ZHHS1BIoZgGQS8ZxlGH0jBG/R0kGwHxHLKZSoieWjYbDHvi21G5sIOIKVJ0";
+  };
+
+  programs.git = {
+    enable = true;
+    config = {
+      user = {
+        name = "Markos Delaportas";
+        email = "delaportas.markos@gmail.com"; # Update this!
+      };
+      init.defaultBranch = "master";
+    };
   };
 
   nix.settings.trusted-users = [ "root" "mark" ];
