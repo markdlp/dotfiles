@@ -113,7 +113,7 @@ in
     description = "Markos Delaportas";
     extraGroups = [ "wheel" "docker" ];
     shell = pkgs.zsh;
-    openssh.authorizedKeys.keys = [ body knees hand ];
+    openssh.authorizedKeys.keys = [ body knee hand ];
     hashedPassword = "$6$U70FqpWC8k3ygdTR$/bDSKDzpF7Ttqtl9Yy3qDjJmEq/ZHHS1BIoZgGQS8ZxlGH0jBG/R0kGwHxHLKZSoieWjYbDHvi21G5sIOIKVJ0";
   };
 
