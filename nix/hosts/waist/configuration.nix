@@ -89,7 +89,12 @@ in
     zoxide      # A smarter 'cd' command that learns your directories
   ];
 
-  
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 30d";
+  };
+
 
   # Enable SSH Daemon for headless management
   services.openssh = {
