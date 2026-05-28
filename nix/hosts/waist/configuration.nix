@@ -36,9 +36,19 @@ in
     };
   };
 
+  # --- NETWORKING & DISCOVERY ---
+  # Assuming you already have networking.hostName = "waist";
   services.avahi = {
     enable = true;
-    nssmdns4 = true;
+    # Whether to enable the mDNS NSS (Name Service Switch) plugin.
+    # This allows the Pi itself to resolve other .local addresses.
+    nssmdns4 = true; 
+    
+    publish = {
+      enable = true;
+      addresses = true;    # Broadcast the IP address
+      workstation = true;  # Broadcast as a workstation/machine
+    };
   };
 
   # --- FONTS (REQUIRED FOR OH-MY-POSH ICONS) ---
