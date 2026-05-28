@@ -101,8 +101,8 @@ in
   services.openssh = {
     enable = true;
     settings = {
-      PermitRootLogin = "yes";
-      PasswordAuthentication = true; # Enforce key-based authentication
+      PermitRootLogin = "no";
+      PasswordAuthentication = false; # Enforce key-based authentication
     };
   };
 
