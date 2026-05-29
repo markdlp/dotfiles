@@ -88,6 +88,8 @@ in
     btop        # A gorgeous, highly visual resource monitor (replaces htop)
     ripgrep     # Blazing fast search tool (replaces grep)
     zoxide      # A smarter 'cd' command that learns your directories
+
+    vscode.fhs
   ];
 
   nix.gc = {
