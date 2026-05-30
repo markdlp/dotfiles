@@ -7,7 +7,8 @@ let
   interface = "wlan0";
   
   # Inject your laptop's EXACT id_ed25519.pub string here
-  body = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILwIR/fq0Xuem6iOpcI5A3pkRh5th1DWa475+L3bbz3+ Body2Waist"; 
+  
+  body = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIImXFh8igFfW3gIBSlTm1dmy8ikX8NrUMpVy/ehSGI5j Body2Waist"; 
   knee = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAg1tjtwMp4XNfgvzgfBWLKIaS1ovrHOrYhHp0GPrs90 Knee2Waist";
   hand = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBMDs/Jo99QLSQaB60GNw+UebJGvs7RTGWSV25maJSwg Hand2Waist";
 in 
@@ -89,6 +90,8 @@ in
     ripgrep     # Blazing fast search tool (replaces grep)
     zoxide      # A smarter 'cd' command that learns your directories
   ];
+
+  programs.nix-ld.enable = true;	
 
   nix.gc = {
     automatic = true;

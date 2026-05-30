@@ -192,8 +192,7 @@
   };
 
   programs.ssh.extraConfig = ''
-    		  Host waist 192.168.1.13
-      	        User mark
+    		  Host waist.local
       	        IdentityFile ~/.ssh/id_myWaist
       	        IdentitiesOnly yes
        	  
