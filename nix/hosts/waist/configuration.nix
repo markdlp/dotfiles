@@ -89,16 +89,15 @@ in
     btop        # A gorgeous, highly visual resource monitor (replaces htop)
     ripgrep     # Blazing fast search tool (replaces grep)
     zoxide      # A smarter 'cd' command that learns your directories
-
-    vscode.fhs
   ];
+
+  programs.nix-ld.enable = true;	
 
   nix.gc = {
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than 30d";
   };
-
 
   # Enable SSH Daemon for headless management
   services.openssh = {
@@ -121,7 +120,7 @@ in
   };
 
   users.users.root = {
-      hashedPassword = "$6$U70FqpWC8k3ygdTR$/bDSKDzpF7Ttqtl9Yy3qDjJmEq/ZHHS1BIoZgGQS8ZxlGH0jBG/R0kGwHxHLKZSoieWjYbDHvi21G5sIOIKVJ0";
+    hashedPassword = "$6$U70FqpWC8k3ygdTR$/bDSKDzpF7Ttqtl9Yy3qDjJmEq/ZHHS1BIoZgGQS8ZxlGH0jBG/R0kGwHxHLKZSoieWjYbDHvi21G5sIOIKVJ0";
   };
 
   programs.git = {
