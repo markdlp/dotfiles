@@ -192,9 +192,9 @@
   };
 
   programs.ssh.extraConfig = ''
-    		  Host waist.local
-      	        IdentityFile ~/.ssh/id_myWaist
-      	        IdentitiesOnly yes
+    		  Host myWaist
+            HostName waist.local
+      	    IdentityFile ~/.ssh/id_myWaist
        	  
           Host myHair
        	    HostName snf-889095.vm.okeanos.grnet.gr
@@ -298,6 +298,10 @@
     options = "--delete-older-than 30d";
   };
 
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true; # This is the crucial line that enables .local resolution!
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
