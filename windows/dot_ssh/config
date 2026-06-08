@@ -18,8 +18,7 @@ Host mySkull
   IdentityFile C:\Users\mark\.ssh\id_mySkull
 
 Host myWaist
-  HostName marksWaist.local
-  User mark
+  HostName waist.local
   ForwardAgent yes
   PreferredAuthentications publickey
   IdentityFile C:\Users\mark\.ssh\id_myWaist
