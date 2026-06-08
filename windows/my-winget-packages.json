@@ -1,6 +1,6 @@
 {
 	"$schema" : "https://aka.ms/winget-packages.schema.2.0.json",
-	"CreationDate" : "2026-05-04T14:44:52.142-00:00",
+	"CreationDate" : "2026-06-08T14:21:24.328-00:00",
 	"Sources" : 
 	[
 		{
@@ -19,16 +19,40 @@
 					"PackageIdentifier" : "Mozilla.Firefox"
 				},
 				{
+					"PackageIdentifier" : "Microsoft.Office"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.OneDrive"
+				},
+				{
 					"PackageIdentifier" : "VideoLAN.VLC"
 				},
 				{
 					"PackageIdentifier" : "DigitalScholar.Zotero"
 				},
 				{
+					"PackageIdentifier" : "Microsoft.msodbcsql.17"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.GameInput"
+				},
+				{
 					"PackageIdentifier" : "RaspberryPiFoundation.RaspberryPiImager"
 				},
 				{
+					"PackageIdentifier" : "Rakuten.Viber"
+				},
+				{
+					"PackageIdentifier" : "Zoom.Zoom"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.CLRTypesSQLServer.2019"
+				},
+				{
 					"PackageIdentifier" : "OpenVPNTechnologies.OpenVPNConnect"
+				},
+				{
+					"PackageIdentifier" : "WinDirStat.WinDirStat"
 				},
 				{
 					"PackageIdentifier" : "Logitech.OptionsPlus"
@@ -40,10 +64,25 @@
 					"PackageIdentifier" : "GitHub.cli"
 				},
 				{
+					"PackageIdentifier" : "BlenderFoundation.Blender"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.WebDeploy"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.VisualStudio.Community"
+				},
+				{
+					"PackageIdentifier" : "angryziber.AngryIPScanner"
+				},
+				{
 					"PackageIdentifier" : "Microsoft.Edge"
 				},
 				{
 					"PackageIdentifier" : "OBSProject.OBSStudio"
+				},
+				{
+					"PackageIdentifier" : "qBittorrent.qBittorrent"
 				},
 				{
 					"PackageIdentifier" : "Microsoft.VCRedist.2015+.x86"
@@ -58,19 +97,49 @@
 					"PackageIdentifier" : "Bitwarden.Bitwarden"
 				},
 				{
+					"PackageIdentifier" : "JohannesMillan.superProductivity"
+				},
+				{
+					"PackageIdentifier" : "Bitwarden.CLI"
+				},
+				{
 					"PackageIdentifier" : "CGSecurity.TestDisk"
+				},
+				{
+					"PackageIdentifier" : "Discord.Discord"
+				},
+				{
+					"PackageIdentifier" : "OliverBetz.ExifTool"
+				},
+				{
+					"PackageIdentifier" : "GIMP.GIMP"
+				},
+				{
+					"PackageIdentifier" : "Gyan.FFmpeg"
+				},
+				{
+					"PackageIdentifier" : "Gyroflow.Gyroflow"
 				},
 				{
 					"PackageIdentifier" : "MathWorks.MATLABConnector"
 				},
 				{
-					"PackageIdentifier" : "Microsoft.OneDrive"
+					"PackageIdentifier" : "CyberTimon.RapidRAW"
 				},
 				{
 					"PackageIdentifier" : "Spotify.Spotify"
 				},
 				{
+					"PackageIdentifier" : "Stremio.Stremio"
+				},
+				{
 					"PackageIdentifier" : "SumatraPDF.SumatraPDF"
+				},
+				{
+					"PackageIdentifier" : "JetBrains.Toolbox"
+				},
+				{
+					"PackageIdentifier" : "Balena.Etcher"
 				},
 				{
 					"PackageIdentifier" : "twpayne.chezmoi"
@@ -82,13 +151,22 @@
 					"PackageIdentifier" : "ATLauncher.ATLauncher"
 				},
 				{
+					"PackageIdentifier" : "Microsoft.PowerToys"
+				},
+				{
 					"PackageIdentifier" : "Microsoft.VisualStudioCode"
+				},
+				{
+					"PackageIdentifier" : "ImageMagick.Q16-HDRI"
 				},
 				{
 					"PackageIdentifier" : "Microsoft.Teams"
 				},
 				{
 					"PackageIdentifier" : "Microsoft.AppInstaller"
+				},
+				{
+					"PackageIdentifier" : "Microsoft.DirectX"
 				},
 				{
 					"PackageIdentifier" : "Microsoft.DotNet.Native.Runtime"
