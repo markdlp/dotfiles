@@ -1,38 +1,16 @@
 {
-  description = "Mark's Unified System Configurations";
+  description = "Unified Dendritic System Configurations";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11"; 
-
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-
-    # Home Manager (Used for WSL)
-    home-manager = {
-      url = "github:nix-community/home-manager/release-25.11"; 
-      inputs.nixpkgs.follows = "nixpkgs"; 
-    };
-
-    # Flake-parts for the dendritic structure
-    flake-parts.url = "github:hercules-ci/flake-parts"; 
-
-    # NixVirt for declarative KVM management
-    NixVirt = {
-      url = "https://flakehub.com/f/AshleyYakeley/NixVirt/*.tar.gz"; 
-      inputs.nixpkgs.follows = "nixpkgs"; 
-    };
+    
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    import-tree.url = "github:vic/import-tree";
+    wrapper-modules.url = "github:BirdeeHub/nix-wrapper-modules";
   };
 
-  outputs =
-    inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } { 
-      # NEW: Added "aarch64-linux" to support the Pi
-      systems = [ "x86_64-linux" "aarch64-linux" ]; 
-
-      # Route to the hosts directory
-      imports = [
-        ./hosts 
-      ];
-    }; 
+  outputs = inputs: inputs.flake-parts.lib.mkFlake 
+    { inherit inputs; } 
+    (inputs.import-tree ./modules);
 }
