@@ -1,3 +1,9 @@
 **/*.ppk
 **/*id_rsa
 **/*id_ed25519
+
+# Ignore all files starting with id_ in the .ssh directory
+.ssh/id_*
+
+# Explicitly DO NOT ignore public keys
+!.ssh/id_*.pub
