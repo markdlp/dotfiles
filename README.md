@@ -4,21 +4,34 @@ This repository contains personal configuration files for multiple machines.
 
 ## Structure
 
-- `windows/` - dotfiles and configuration for Windows machines
-- `nixos/` - dotfiles and configuration for NixOS machines
+- `windows/` - Declarative configuration and application manifests for Windows (managed with [chezmoi](https://www.chezmoi.io/) via `.chezmoiroot`).
+- `nix/` - Declarative NixOS system configurations organized via the **Dendritic Pattern**.
 
-## Windows
+## Windows Setup (Chezmoi & Winget)
 
-Windows dotfiles are managed with [chezmoi](https://www.chezmoi.io/).
+Windows dotfiles and software packages are managed with **chezmoi** and **winget**. The `.chezmoiroot` file directs chezmoi to map the `windows/` directory to your home profile (`~`) automatically.
 
-To use the Windows configuration:
+### Clean Setup on a New Windows Machine:
 
-```powershell
-chezmoi init https://github.com/markdlp/dotfiles.git
-chezmoi apply
-```
+1. **Install Chezmoi** (via PowerShell):
+   ```powershell
+   winget install twpayne.chezmoi
+   ```
 
-Replace `markdlp` with your GitHub username or repository source.
+2. **Initialize and Apply Dotfiles**:
+   ```powershell
+   chezmoi init https://github.com/markdlp/dotfiles.git
+   chezmoi apply
+   ```
+   *(This applies Windows Terminal and VS Code configurations, installs all applications declared in `my-winget-packages.json`, and sets up PowerShell).*
+
+3. **Restore SSH Private Keys from Bitwarden**:
+   ```powershell
+   # Unlock Bitwarden session
+   $env:BW_SESSION = (bw unlock --raw)
+   # Download keys and lock down ACLs
+   powershell -File "$HOME\restore_ssh_keys.ps1"
+   ```
 
 ## NixOS & Dendritic Pattern
 
@@ -47,4 +60,3 @@ sudo nixos-rebuild switch --flake ~/dotfiles/nix#waist
 # On WSL (Native NixOS-WSL)
 sudo nixos-rebuild switch --flake ~/dotfiles/nix#wsl
 ```
-

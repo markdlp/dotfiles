@@ -3,35 +3,36 @@ Host myHair
   User mark
   ForwardAgent yes
   Port 4994
-  IdentityFile C:\Users\mark\.ssh\id_myHair
+  IdentityFile {{ .chezmoi.homeDir }}/.ssh/id_myHair
 
 Host zafora
   HostName pleiades.ece.uowm.gr
   User ece01316
-  IdentityFile C:\Users\mark\.ssh\id_zafora
+  IdentityFile {{ .chezmoi.homeDir }}/.ssh/id_zafora
 
 Host mySkull
   HostName mySkull.local
   User mark
   ForwardAgent yes
   PreferredAuthentications publickey
-  IdentityFile C:\Users\mark\.ssh\id_mySkull
+  IdentityFile {{ .chezmoi.homeDir }}/.ssh/id_mySkull
 
 Host myWaist
   HostName waist.local
   ForwardAgent yes
   PreferredAuthentications publickey
-  IdentityFile C:\Users\mark\.ssh\id_myWaist
+  IdentityFile {{ .chezmoi.homeDir }}/.ssh/id_myWaist
 
 Host github.com
   User git
   Hostname github.com
   PreferredAuthentications publickey
-  IdentityFile C:\Users\mark\.ssh\id_gh_win
+  IdentityFile {{ .chezmoi.homeDir }}/.ssh/id_gh_win
 
 Host aspire
   ForwardAgent yes
   User mark
   HostName srv.aspire.uowm.gr
   PreferredAuthentications publickey
-  IdentityFile C:\Users\mark\.ssh\id_aspire
+  IdentityFile {{ .chezmoi.homeDir }}/.ssh/id_aspire
+

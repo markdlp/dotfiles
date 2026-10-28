@@ -30,7 +30,7 @@
     {
         "defaults": 
         {
-            "backgroundImage": "C:\\Users\\mark\\OneDrive\\\u0395\u03b9\u03ba\u03cc\u03bd\u03b5\u03c2\\Unsplashed\\karsten-wurth-7BjhtdogU3A-unsplash.jpg",
+            "backgroundImage": "{{ .chezmoi.homeDir }}/OneDrive/Εικόνες/Unsplashed/karsten-wurth-7BjhtdogU3A-unsplash.jpg",
             "backgroundImageOpacity": 0.15,
             "backgroundImageStretchMode": "uniformToFill",
             "colorScheme": "Whimsy",
@@ -64,10 +64,11 @@
                 "source": "Windows.Terminal.Azure"
             },
             {
+                "commandline": "wsl.exe -d NixOS",
                 "cursorShape": "bar",
-                "guid": "{22ad643c-83dc-511c-9a22-8252a7fd461b}",
+                "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b9}",
                 "hidden": false,
-                "name": "Ubuntu",
+                "name": "NixOS",
                 "source": "Microsoft.WSL"
             },
             {
