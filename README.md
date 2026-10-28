@@ -20,13 +20,31 @@ chezmoi apply
 
 Replace `markdlp` with your GitHub username or repository source.
 
-## NixOS
+## NixOS & Dendritic Pattern
 
-The `nixos/` folder contains NixOS-specific configuration and modules.
+The `nix/` folder contains declarative system configurations for all Nix machines organized using the **Dendritic Pattern** with [flake-parts](https://github.com/hercules-ci/flake-parts) and [import-tree](https://github.com/denful/import-tree).
 
-Use this directory as the base for NixOS system configuration and import it into your NixOS configuration.
+### Repository Layout
 
-## Notes
+- `nix/flake.nix`: Minimal entry point importing dendritic aspects and hosts.
+- `nix/aspects/`: Self-contained, auto-discovered feature modules (`core/`, `desktop/`, `hardware/`, `virtualisation/`, `dev/`, `wsl/`).
+- `nix/hosts/`: Machine definitions and hardware specifications:
+  - `body`: Desktop workstation (`x86_64-linux`, GNOME, NVIDIA, KVM/Whonix)
+  - `waist`: Headless Raspberry Pi 4 (`aarch64-linux`, unstable channel, Docker)
+  - `wsl`: Native NixOS on WSL instance (`x86_64-linux`, unstable channel)
 
-- Keep machine-specific files in their respective folders.
-- Use the appropriate setup process for each platform.
+### Deployment & Rebuilding
+
+From inside the `nix/` directory (or pointing to your dotfiles repo):
+
+```bash
+# On Body (Desktop)
+sudo nixos-rebuild switch --flake ~/dotfiles/nix#body
+
+# On Waist (Raspberry Pi 4)
+sudo nixos-rebuild switch --flake ~/dotfiles/nix#waist
+
+# On WSL (Native NixOS-WSL)
+sudo nixos-rebuild switch --flake ~/dotfiles/nix#wsl
+```
+
