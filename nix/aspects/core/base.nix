@@ -76,7 +76,7 @@
         fastfetch
         git
         gh
-        nixfmt-rfc-style
+        nixfmt
 
         # Archives & networking utilities
         unzip
