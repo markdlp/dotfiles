@@ -33,16 +33,24 @@
         done
         ln -sfn ${pkgs.bash}/bin/bash /bin/bash
         ln -sfn ${pkgs.bash}/bin/bash /usr/bin/bash
+        ln -sfn /run/current-system/sw/bin/nixos-rebuild /usr/bin/nixos-rebuild
+        ln -sfn /run/current-system/sw/bin/nixos-rebuild /bin/nixos-rebuild
       '';
 
       systemd.tmpfiles.rules = [
+        "d /run/binfmt 0755 root root -"
         "L+ /bin/test - - - - ${pkgs.coreutils}/bin/test"
         "L+ /usr/bin/test - - - - ${pkgs.coreutils}/bin/test"
         "L+ /bin/whoami - - - - ${pkgs.coreutils}/bin/whoami"
         "L+ /usr/bin/whoami - - - - ${pkgs.coreutils}/bin/whoami"
         "L+ /bin/bash - - - - ${pkgs.bash}/bin/bash"
         "L+ /usr/bin/bash - - - - ${pkgs.bash}/bin/bash"
+        "L+ /bin/nixos-rebuild - - - - /run/current-system/sw/bin/nixos-rebuild"
+        "L+ /usr/bin/nixos-rebuild - - - - /run/current-system/sw/bin/nixos-rebuild"
       ];
+
+      # --- AARCH64 EMULATION FOR RASPBERRY PI OFF-DEVICE BUILDS ---
+      boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
       # --- DECLARATIVE WINDOWS CLOUD SYMLINKS ---
       system.activationScripts.wslWindowsSymlinks.text = ''
