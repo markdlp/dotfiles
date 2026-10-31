@@ -7,6 +7,13 @@
       # --- ZSH & OH-MY-ZSH ---
       programs.zsh = {
         enable = true;
+
+        shellInit = ''
+          if [ -d "$HOME/.cache/oh-my-zsh/completions" ]; then
+            chmod -R u+w "$HOME/.cache/oh-my-zsh/completions" 2>/dev/null || true
+          fi
+        '';
+
         ohMyZsh = {
           enable = true;
           plugins = [
