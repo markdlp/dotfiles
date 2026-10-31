@@ -2,7 +2,13 @@
 
 {
   flake.modules.nixos.core-base =
-    { config, pkgs, ... }:
+    {
+      config,
+      pkgs,
+      options,
+      lib,
+      ...
+    }:
     {
       # --- NIX DAEMON & FLAKES ---
       nix.settings = {
@@ -46,15 +52,25 @@
       services.avahi = {
         enable = true;
         nssmdns4 = true;
-        settings = {
-          publish = {
-            publish-workstation = true;
-            publish-addresses = true;
-            disable-publishing = false;
-          };
-        };
-      };
-      # services.avahi.settings.publish."disable-publishing" = false;
+      }
+      // (
+        if options.services.avahi ? settings then
+          {
+            settings.publish = {
+              publish-workstation = true;
+              publish-addresses = true;
+              disable-publishing = false;
+            };
+          }
+        else
+          {
+            publish = {
+              enable = true;
+              addresses = true;
+              workstation = true;
+            };
+          }
+      );
 
       # --- SECURITY & PERMISSIONS ---
       security.sudo.wheelNeedsPassword = false;

@@ -40,8 +40,6 @@
       # Raspberry Pi connectivity & headless management utilities
       environment.systemPackages = with pkgs; [
         tmux
-        rpi-connect
-        rpi-connect-ota
       ];
     };
 }

@@ -48,15 +48,68 @@ The `nix/` folder contains declarative system configurations for all Nix machine
 
 ### Deployment & Rebuilding
 
-From inside the `nix/` directory (or pointing to your dotfiles repo):
+Configurations can be deployed and switched directly from your **Windows (NixOS-WSL)** environment over SSH, or locally on each physical machine.
 
-```bash
+#### From Windows (NixOS-WSL)
+
+From within your NixOS-WSL terminal (pointing to your dotfiles repository):
+
+##### 1. Rebuild Local WSL
+```zsh
+sudo nixos-rebuild switch --flake ~/dotfiles/nix\#wsl
+```
+
+##### 2. Remote Deploy via SSH
+Deploy to remote hosts using `--target-host` and `--elevate=sudo`.
+
+- **Waist (Raspberry Pi 4 - `aarch64-linux`):**
+  Uses `--build-host` to build derivations directly on the Pi, avoiding `x86_64` to `aarch64` cross-compilation on WSL:
+  ```zsh
+  nixos-rebuild switch --flake ~/dotfiles/nix\#waist \
+    --target-host mark@waist.local \
+    --build-host mark@waist.local \
+    --elevate=sudo
+  ```
+
+- **Body (Desktop Workstation - `x86_64-linux`):**
+  Uses `--build-host` to offload the build to the workstation's hardware:
+  ```zsh
+  nixos-rebuild switch --flake ~/dotfiles/nix\#body \
+    --target-host mark@body.local \
+    --build-host mark@body.local \
+    --elevate=sudo
+  ```
+
+> [!TIP]
+> - **No local `sudo` needed**: When deploying remotely, do not run `sudo nixos-rebuild`; local `sudo` is only needed when switching the local WSL instance.
+> - **Flags breakdown**:
+>   - `--target-host`: The remote SSH target where the new system profile is activated.
+>   - `--build-host`: The SSH host where derivations are built (crucial for cross-architecture targets like the Raspberry Pi).
+>   - `--elevate=sudo`: Runs activation commands on the remote target using `sudo` without needing root SSH logins (replaces deprecated `--use-remote-sudo`).
+> - **Host resolution & WSL2 NAT**: Remote hosts use mDNS (`.local`) managed declaratively via Avahi in `core-base`. If WSL2 in standard NAT mode cannot resolve `.local` domains, substitute the LAN IP address (e.g., `mark@192.168.1.X`), define a host alias in `~/.ssh/config`, or set `networkingMode=mirrored` in `%USERPROFILE%\.wslconfig`.
+
+##### 3. One-Liner from Windows PowerShell
+You can also trigger these deployments directly from a Windows PowerShell prompt:
+
+```powershell
+# Rebuild local WSL
+wsl sudo nixos-rebuild switch --flake ~/dotfiles/nix\#wsl
+
+# Remote rebuild Waist (Pi 4)
+wsl nixos-rebuild switch --flake ~/dotfiles/nix\#waist --target-host mark@waist.local --build-host mark@waist.local --elevate=sudo
+
+# Remote rebuild Body (Desktop)
+wsl nixos-rebuild switch --flake ~/dotfiles/nix\#body --target-host mark@body.local --build-host mark@body.local --elevate=sudo
+```
+
+#### On-Device Local Rebuild (Fallback)
+
+If you are physically logged into the target machine:
+
+```zsh
 # On Body (Desktop)
-sudo nixos-rebuild switch --flake ~/dotfiles/nix#body
+sudo nixos-rebuild switch --flake ~/dotfiles/nix\#body
 
 # On Waist (Raspberry Pi 4)
-sudo nixos-rebuild switch --flake ~/dotfiles/nix#waist
-
-# On WSL (Native NixOS-WSL)
-sudo nixos-rebuild switch --flake ~/dotfiles/nix#wsl
+sudo nixos-rebuild switch --flake ~/dotfiles/nix\#waist
 ```

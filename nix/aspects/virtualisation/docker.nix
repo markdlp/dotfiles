@@ -10,8 +10,9 @@
       # Grant user mark permissions to communicate with the Docker daemon
       users.users.mark.extraGroups = [ "docker" ];
 
-      # Automatically enable NVIDIA Container Toolkit if NVIDIA modesetting is active
-      hardware.nvidia-container-toolkit.enable =
-        lib.mkDefault (config.hardware.nvidia.modesetting.enable or false);
+      # Automatically enable NVIDIA Container Toolkit if NVIDIA driver is loaded
+      hardware.nvidia-container-toolkit.enable = lib.mkDefault (
+        builtins.elem "nvidia" (config.services.xserver.videoDrivers or [ ])
+      );
     };
 }
