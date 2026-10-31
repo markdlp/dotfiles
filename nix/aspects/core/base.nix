@@ -47,11 +47,12 @@
         enable = true;
         nssmdns4 = true;
         publish = {
-          disable-publishing = false;
           publish-addresses = true;
           publish-workstation = true;
         };
+
       };
+      # services.avahi.settings.publish."disable-publishing" = false;
 
       # --- SECURITY & PERMISSIONS ---
       security.sudo.wheelNeedsPassword = false;
