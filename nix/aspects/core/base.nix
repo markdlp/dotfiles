@@ -47,9 +47,9 @@
         enable = true;
         nssmdns4 = true;
         publish = {
-          enable = true;
-          addresses = true;
-          workstation = true;
+          disable-publishing = false;
+          publish-addresses = true;
+          publish-workstation = true;
         };
       };
 
