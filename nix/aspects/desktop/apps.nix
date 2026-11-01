@@ -1,8 +1,14 @@
-{ ... }:
+{ inputs, ... }:
 
 {
   flake.modules.nixos.desktop-apps =
     { pkgs, ... }:
+    let
+      pkgs-unstable = import inputs.nixpkgs-unstable {
+        inherit (pkgs.stdenv.hostPlatform) system;
+        config.allowUnfree = true;
+      };
+    in
     {
       # --- FIREFOX WITH PWA SUPPORT ---
       programs.firefox = {
@@ -47,7 +53,7 @@
         angryipscanner
         prismlauncher
         jetbrains-toolbox
-        antigravity-fhs
+        pkgs-unstable.antigravity-fhs
       ];
     };
 }
