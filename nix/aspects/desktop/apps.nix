@@ -53,7 +53,7 @@
         angryipscanner
         prismlauncher
         jetbrains-toolbox
-        pkgs-unstable.antigravity-fhs
+        pkgs-unstable.antigravity-ide-fhs
       ];
     };
 }
