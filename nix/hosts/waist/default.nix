@@ -20,7 +20,7 @@
         { lib, ... }:
         {
           networking.hostName = "waist";
-          system.stateVersion = "26.05";
+          system.stateVersion = "25.11";
 
           # Disable build-time local checks that trigger platform mismatch on x86 builders
           system.checks = lib.mkForce [ ];
