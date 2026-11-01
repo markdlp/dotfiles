@@ -30,6 +30,10 @@
           boot.loader.systemd-boot.enable = true;
           boot.loader.efi.canTouchEfiVariables = true;
           boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+          nix.settings.extra-platforms = [
+            "x86_64-linux"
+            "aarch64-linux"
+          ];
 
           # Whonix KVM & virtual machine definitions
           virtualisation.libvirt.connections."qemu:///system" = {

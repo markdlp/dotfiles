@@ -51,6 +51,10 @@
 
       # --- AARCH64 EMULATION FOR RASPBERRY PI OFF-DEVICE BUILDS ---
       boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+      nix.settings.extra-platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
 
       # --- DECLARATIVE WINDOWS CLOUD SYMLINKS ---
       system.activationScripts.wslWindowsSymlinks.text = ''
