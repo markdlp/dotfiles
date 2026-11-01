@@ -16,6 +16,9 @@
 
         # Official Docker Desktop integration hook
         docker-desktop.enable = true;
+
+        # Allow systemd-binfmt to register foreign architecture emulators
+        wslConf.boot.protectBinfmt = false;
       };
 
       # Add user mark to the docker group
