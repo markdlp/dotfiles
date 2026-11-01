@@ -47,6 +47,7 @@
         angryipscanner
         prismlauncher
         jetbrains-toolbox
+        antigravity-fhs
       ];
     };
 }
