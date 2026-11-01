@@ -26,7 +26,7 @@ Windows dotfiles and software packages are managed with **chezmoi** and **winget
    chezmoi apply
    ```
 
-   *(This applies `.wslconfig` (mirrored networking), `.gitconfig`, Zed, Windows Terminal, and VS Code configurations, installs all applications declared in `my-winget-packages.json`, and sets up PowerShell).*
+   *(This applies `.wslconfig` (mirrored networking), `.gitconfig` (LF & LFS), Zed, Windows Terminal palettes, VS Code settings, installs extensions from `vscode-extensions.txt`, installs all applications declared in `my-winget-packages.json`, and sets up PowerShell).*
 
 3. **Restore SSH Private Keys from Bitwarden**:
 

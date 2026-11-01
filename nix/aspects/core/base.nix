@@ -94,6 +94,7 @@
         btop
         fastfetch
         git
+        git-lfs
         gh
         nixfmt
 

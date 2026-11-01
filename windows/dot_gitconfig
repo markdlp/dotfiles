@@ -3,4 +3,12 @@
 	email = delaportas.markos@gmail.com
 [init]
 	defaultBranch = master
-
+[core]
+	longpaths = true
+	autocrlf = input
+	eol = lf
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

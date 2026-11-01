@@ -36,12 +36,17 @@ in
       # --- GLOBAL GIT CONFIGURATION ---
       programs.git = {
         enable = true;
+        lfs.enable = true;
         config = {
           user = {
             name = "Markos Delaportas";
             email = "delaportas.markos@gmail.com";
           };
           init.defaultBranch = "master";
+          core = {
+            autocrlf = "input";
+            eol = "lf";
+          };
         };
       };
     };

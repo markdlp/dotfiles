@@ -1,0 +1,68 @@
+# --- VS Code Extensions Manifest ---
+# Automatically processed by chezmoi run_onchange script
+
+# Language & Tooling Core
+ms-python.python
+ms-python.black-formatter
+ms-python.vscode-pylance
+ms-python.debugpy
+ms-python.vscode-python-envs
+ms-dotnettools.csharp
+ms-dotnettools.vscode-dotnet-runtime
+ms-vscode.cpptools
+ms-vscode.cpptools-themes
+ms-vscode.powershell
+sumneko.lua
+redhat.vscode-xml
+tamasfe.even-better-toml
+mathworks.language-matlab
+
+# Web & Formatters
+dbaeumer.vscode-eslint
+esbenp.prettier-vscode
+stkb.rewrap
+yzhang.markdown-all-in-one
+cschlosser.doxdocgen
+
+# Remote & Containers
+ms-vscode-remote.remote-wsl
+ms-vscode-remote.remote-ssh
+ms-vscode-remote.remote-ssh-edit
+ms-vscode-remote.remote-containers
+ms-vscode-remote.vscode-remote-extensionpack
+ms-azuretools.vscode-docker
+ms-azuretools.vscode-containers
+
+# Git & Collaboration
+eamodio.gitlens
+github.vscode-pull-request-github
+github.remotehub
+ms-vsliveshare.vsliveshare
+
+# Documentation, Diagrams & Science
+james-yu.latex-workshop
+hediet.vscode-drawio
+pomdtr.excalidraw-editor
+gera2ld.markmap-vscode
+markwhen.markwhen
+ms-toolsai.jupyter
+ms-toolsai.jupyter-renderers
+ms-toolsai.jupyter-keymap
+
+# Spell Checking (English & Greek)
+streetsidesoftware.code-spell-checker
+streetsidesoftware.code-spell-checker-greek
+
+# Themes & Aesthetics
+github.github-vscode-theme
+eliverlara.andromeda
+PKief.material-icon-theme
+johnpapa.vscode-peacock
+
+# Utilities & Productivity
+aaron-bond.better-comments
+alefragnani.bookmarks
+bierner.emojisense
+ms-vscode.hexeditor
+ms-vscode.wordcount
+

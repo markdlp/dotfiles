@@ -1,6 +1,5 @@
 {
     "security.workspace.trust.untrustedFiles": "newWindow",
-    "git.confirmSync": false,
     "security.allowedUNCHosts": [
         "wsl.localhost"
     ],
@@ -9,17 +8,49 @@
         "*.conf.tmpl": "properties",
         "config.tmpl": "ssh_config"
     },
+    "workbench.colorTheme": "GitHub Dark Dimmed",
+    "workbench.iconTheme": "material-icon-theme",
+    "editor.fontFamily": "'Fira Code Retina', 'MesloLGS Nerd Font', Consolas, monospace",
+    "editor.fontSize": 15,
+    "editor.fontLigatures": true,
+    "terminal.integrated.fontFamily": "MesloLGS Nerd Font",
+    "terminal.integrated.fontLigatures.enabled": true,
+    "git.confirmSync": false,
+    "git.enableSmartCommit": true,
+    "remote.SSH.connectTimeout": 20,
+    "remote.SSH.remotePlatform": {
+        "myHair": "linux",
+        "myWaist": "linux",
+        "aspire": "linux",
+        "mySkull": "linux",
+        "snf-878237.vm.okeanos.grnet.gr": "linux",
+        "10.2.110.175": "linux"
+    },
+    "dart.flutterSdkPath": "{{ .chezmoi.homeDir }}/AppData/Local/SDKs/flutter",
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
-    "dart.flutterSdkPath": "{{ .chezmoi.homeDir }}/AppData/Local/SDKs/flutter",
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
     "[latex]": {
         "editor.defaultFormatter": "James-Yu.latex-workshop"
     },
-    "remote.SSH.remotePlatform": {
-        "myWaist": "linux"
+    "[markdown]": {
+        "editor.defaultFormatter": "yzhang.markdown-all-in-one"
     },
-    "terminal.integrated.fontFamily": "MesloLGS Nerd Font",
+    "[dockercompose]": {
+        "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+    },
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "cSpell.userWords": [
+        "flowgraph"
+    ],
     "github.copilot.enable": {
         "*": true,
         "plaintext": false,

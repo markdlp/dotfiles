@@ -1,0 +1,30 @@
+# Self-contained declarative VS Code extensions installer
+# Hash: {{ include "vscode-extensions.txt" | sha256sum }}
+
+$ErrorActionPreference = "SilentlyContinue"
+
+if (-not (Get-Command code -ErrorAction SilentlyContinue)) {
+    Write-Warning "VS Code CLI ('code') is not in PATH. Skipping extensions sync."
+    return
+}
+
+Write-Host "Checking VS Code extensions..." -ForegroundColor Cyan
+$installed = & code --list-extensions | ForEach-Object { $_.Trim().ToLower() }
+
+$desiredExtensions = @(
+{{- range (include "vscode-extensions.txt" | splitList "\n") }}
+{{- $line := . | trim }}
+{{- if and $line (not (hasPrefix "#" $line)) }}
+    "{{ $line }}",
+{{- end }}
+{{- end }}
+)
+
+foreach ($ext in $desiredExtensions) {
+    if ($ext -and ($installed -notcontains $ext.ToLower())) {
+        Write-Host "Installing VS Code extension: $ext" -ForegroundColor Yellow
+        & code --install-extension $ext --force
+    }
+}
+Write-Host "VS Code extensions are up to date!" -ForegroundColor Green
+
