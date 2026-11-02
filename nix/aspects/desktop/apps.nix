@@ -20,6 +20,8 @@
       # --- KITTY TERMINAL CONFIGURATION ---
       environment.etc."xdg/kitty/kitty.conf".source = ./kitty.conf;
 
+      environment.localBinInPath = true;
+
       # --- GUI & DESKTOP APPLICATIONS ---
       environment.systemPackages = with pkgs; [
         # Terminal & Editors
