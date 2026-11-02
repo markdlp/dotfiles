@@ -37,9 +37,7 @@
         };
       };
 
-      # Raspberry Pi connectivity & headless management utilities
-      environment.systemPackages = with pkgs; [
-        tmux
-      ];
+      # Headless management utilities (core-tmux provides tmux & session management)
+      environment.systemPackages = with pkgs; [ ];
     };
 }

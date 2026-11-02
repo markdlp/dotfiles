@@ -33,6 +33,11 @@
           nano = "micro";
           ls = "ls --color=auto";
           ll = "ls -la";
+
+          # Detached background rebuilds & session helpers
+          rebuild-waist-bg = "job-run -s rebuild-waist 'nixos-rebuild switch --flake ~/dotfiles/nix#waist --target-host waist.local --elevate=sudo'";
+          rebuild-body-bg = "job-run -s rebuild-body 'sudo nixos-rebuild switch --flake ~/dotfiles/nix#body'";
+          rebuild-wsl-bg = "job-run -s rebuild-wsl 'sudo nixos-rebuild switch --flake ~/dotfiles/nix#wsl'";
         };
       };
 

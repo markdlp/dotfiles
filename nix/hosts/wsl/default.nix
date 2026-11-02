@@ -9,6 +9,7 @@
       config.flake.modules.nixos.core-base
       config.flake.modules.nixos.core-users
       config.flake.modules.nixos.core-zsh
+      config.flake.modules.nixos.core-tmux
       config.flake.modules.nixos.wsl
       config.flake.modules.nixos.dev-gnuradio
       config.flake.modules.nixos.dev-java

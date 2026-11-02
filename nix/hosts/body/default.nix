@@ -11,6 +11,7 @@
       config.flake.modules.nixos.core-base
       config.flake.modules.nixos.core-users
       config.flake.modules.nixos.core-zsh
+      config.flake.modules.nixos.core-tmux
       config.flake.modules.nixos.desktop-gnome
       config.flake.modules.nixos.desktop-apps
       config.flake.modules.nixos.hardware-nvidia

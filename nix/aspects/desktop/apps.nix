@@ -46,6 +46,7 @@
         # Media & Entertainment
         spotify
         vlc
+        stremio-linux-shell
 
         # Security & Password Management
         bitwarden-desktop

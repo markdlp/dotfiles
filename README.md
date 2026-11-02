@@ -122,3 +122,58 @@ sudo nixos-rebuild switch --flake ~/dotfiles/nix\#body
 # On Waist (Raspberry Pi 4)
 sudo nixos-rebuild switch --flake ~/dotfiles/nix\#waist
 ```
+
+### Detached & Background Deployments (Tmux & `job-run`)
+
+Long-running commands (such as compiling the kernel for Waist or large system builds) can be launched in persistent, detached tmux sessions so you can close your terminal, disconnect, or monitor progress at your convenience.
+
+#### 1. Fire-and-Forget Background Aliases
+
+```zsh
+# Rebuild Waist in background with persistent logs & desktop notification on finish
+rebuild-waist-bg
+
+# Rebuild Body in background
+rebuild-body-bg
+
+# Rebuild WSL in background
+rebuild-wsl-bg
+```
+
+#### 2. Running Custom Tasks with `job-run`
+
+```zsh
+# Spawn detached with custom session name
+job-run -s my-build "command to run"
+
+# Spawn and attach immediately (Ctrl-Space then d to detach anytime)
+job-run -a -s kernel-compile "make -j$(nproc)"
+```
+
+- **Logs**: Preserved automatically in `~/.local/state/tmux-jobs/<session>-<timestamp>.log`.
+- **Completion**: Sends a desktop notification via `notify-send`, rings the terminal bell, and preserves the window with exit code and duration until you press `[Enter]`.
+
+#### 3. Remote Session Management (`ssh-tmux`)
+
+Safely attach or create a persistent tmux session on remote hosts without breaking non-interactive automation:
+
+```zsh
+# Connect to Waist with persistent 'main' session
+ssh-tmux waist.local
+
+# Connect to a named session
+ssh-tmux waist.local kernel-work
+```
+
+#### 4. Tmux Keybindings Reference
+
+- **Prefix**: `Ctrl-Space`
+- **Fuzzy Workspace Switcher**: `Ctrl-Space` + `f` (runs `tmux-sessionizer` with `fzf`)
+- **Vertical Split**: `Ctrl-Space` + `|` (opens in current working directory)
+- **Horizontal Split**: `Ctrl-Space` + `-` (opens in current working directory)
+- **New Window**: `Ctrl-Space` + `c` (opens in current working directory)
+- **Vim Navigation**: `Ctrl-Space` + `h` / `j` / `k` / `l`
+- **Vi Copy Mode**: `Ctrl-Space` + `[` (`v` to select, `y` to copy to system clipboard via OSC 52)
+- **Detach Session**: `Ctrl-Space` + `d`
+- **Reattach**: `tmux attach` or `tmux attach -t <name>`
+

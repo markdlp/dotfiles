@@ -12,6 +12,7 @@
       config.flake.modules.nixos.core-base
       config.flake.modules.nixos.core-users
       config.flake.modules.nixos.core-zsh
+      config.flake.modules.nixos.core-tmux
       config.flake.modules.nixos.hardware-rpi
       config.flake.modules.nixos.virtualisation-docker
 
