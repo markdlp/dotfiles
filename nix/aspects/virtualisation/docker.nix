@@ -5,7 +5,10 @@
     { config, lib, ... }:
     {
       # Enable the Docker daemon
-      virtualisation.docker.enable = true;
+      virtualisation.docker = {
+        enable = true;
+        daemon.settings.features.cdi = true;
+      };
 
       # Grant user mark permissions to communicate with the Docker daemon
       users.users.mark.extraGroups = [ "docker" ];

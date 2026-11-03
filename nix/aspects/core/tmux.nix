@@ -45,6 +45,8 @@
 
       # --- DETACHED JOB RUNNER HELPER ---
       # TODO: Consider using zsh instead of bash here
+      # TODO: Add support for multiple remote hosts
+      # TODO: Look into https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/programs/jobrun/default.nix
       job-run = pkgs.writeShellScriptBin "job-run" ''
         set -euo pipefail
 
@@ -132,11 +134,11 @@ DURATION=\$((END_TIME - START_TIME))
 echo ""
 echo -e "\033[1;34m=================================================================\033[0m"
 if [[ \$EXIT_CODE -eq 0 ]]; then
-  echo -e "\033[1;32m✔ [SUCCESS]\033[0m Completed in ''${DURATION}s with exit code 0."
+  echo -e "\033[1;32m✔ [SUCCESS]\033[0m Completed in \''${DURATION}s with exit code 0."
   STATUS_TITLE="Job Succeeded: \$SESSION"
   URGENCY="normal"
 else
-  echo -e "\033[1;31m✖ [FAILED]\033[0m Terminated with exit code \$EXIT_CODE after ''${DURATION}s."
+  echo -e "\033[1;31m✖ [FAILED]\033[0m Terminated with exit code \$EXIT_CODE after \''${DURATION}s."
   STATUS_TITLE="Job Failed: \$SESSION"
   URGENCY="critical"
 fi
@@ -146,7 +148,7 @@ echo -e "\033[1;34m=============================================================
 # Desktop notification & terminal bell
 printf '\a' 2>/dev/null || true
 if command -v notify-send >/dev/null 2>&1; then
-  notify-send -u "\$URGENCY" -a "job-run" "\$STATUS_TITLE" "Finished in ''${DURATION}s with exit code \$EXIT_CODE\nLog: \$LOG" 2>/dev/null || true
+  notify-send -u "\$URGENCY" -a "job-run" "\$STATUS_TITLE" "Finished in \''${DURATION}s with exit code \$EXIT_CODE\nLog: \$LOG" 2>/dev/null || true
 fi
 
 echo ""

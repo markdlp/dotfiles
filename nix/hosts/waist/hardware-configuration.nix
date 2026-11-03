@@ -3,7 +3,8 @@
 {
   # Boot and Hardware settings
   boot = {
-    # kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
+    # Use standard upstream Linux kernel (prebuilt and cached on cache.nixos.org)
+    kernelPackages = pkgs.linuxPackages;
     initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
     loader = {
       grub.enable = false;
