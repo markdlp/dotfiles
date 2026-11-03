@@ -19,6 +19,7 @@
       config.flake.modules.nixos.virtualisation-libvirt
       config.flake.modules.nixos.dev-gnuradio
       config.flake.modules.nixos.dev-java
+      config.flake.modules.nixos.dev-devenv
 
       # Host-specific settings
       (

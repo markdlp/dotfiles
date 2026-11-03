@@ -33,9 +33,11 @@
         # Web & Internet
         firefoxpwa
         thunderbird
+        transmission_4-gtk
 
         # Productivity & Office
         obsidian
+        localsend
         freecad
         zotero
         libreoffice-qt
