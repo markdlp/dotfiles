@@ -15,7 +15,7 @@ $desiredExtensions = @(
 {{- range (include "vscode-extensions.txt" | splitList "\n") }}
 {{- $line := . | trim }}
 {{- if and $line (not (hasPrefix "#" $line)) }}
-    "{{ $line }}",
+    "{{ $line }}"
 {{- end }}
 {{- end }}
 )

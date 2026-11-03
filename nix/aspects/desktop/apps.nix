@@ -49,6 +49,7 @@
         spotify
         vlc
         stremio-linux-shell
+        audacity
 
         # Security & Password Management
         bitwarden-desktop

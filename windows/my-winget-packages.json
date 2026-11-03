@@ -19,6 +19,7 @@
 				{ "PackageIdentifier" : "Discord.Discord" },
 				{ "PackageIdentifier" : "Docker.DockerDesktop" },
 				{ "PackageIdentifier" : "EclipseAdoptium.Temurin.25.JDK" },
+				{ "PackageIdentifier" : "tonsky.FiraCode" },
 				{ "PackageIdentifier" : "GIMP.GIMP" },
 				{ "PackageIdentifier" : "Git.Git" },
 				{ "PackageIdentifier" : "GitHub.cli" },
