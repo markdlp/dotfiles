@@ -58,6 +58,7 @@
         jetbrains-toolbox
         agPkgs.google-antigravity
         agPkgs.google-antigravity-cli
+        agPkgs.google-antigravity-ide
       ];
     }
   ;

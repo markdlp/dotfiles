@@ -1,4 +1,8 @@
 {
     "git.confirmSync": false,
-    "git.autofetch": true
+    "git.autofetch": true,
+    "terminal.integrated.fontFamily": "MesloLGS Nerd Font Mono",
+    "terminal.integrated.fontLigatures.enabled": true,
+    "editor.fontFamily": "'FiraCode Nerd Font', 'MesloLGS Nerd Font', monospace",
+    "editor.fontLigatures": true
 }

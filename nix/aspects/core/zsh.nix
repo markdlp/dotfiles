@@ -23,9 +23,9 @@
           ];
         };
 
-        # Standardized modern shell prompt with Oh-My-Posh (atomic theme)
+        # Standardized modern shell prompt with Oh-My-Posh (Catppuccin Mocha theme)
         promptInit = ''
-          eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init zsh --config ${pkgs.oh-my-posh}/share/oh-my-posh/themes/atomic.omp.json)"
+          eval "$(${pkgs.oh-my-posh}/bin/oh-my-posh init zsh --config ${pkgs.oh-my-posh}/share/oh-my-posh/themes/catppuccin_mocha.omp.json)"
         '';
 
         shellAliases = {
@@ -46,9 +46,22 @@
       ];
 
       # --- NERD FONTS FOR TERMINAL ICONS ---
-      fonts.packages = with pkgs; [
-        nerd-fonts.meslo-lg
-        nerd-fonts.fira-code
-      ];
+      fonts = {
+        packages = with pkgs; [
+          nerd-fonts.meslo-lg
+          nerd-fonts.fira-code
+        ];
+
+        fontconfig = {
+          enable = true;
+          defaultFonts = {
+            monospace = [
+              "MesloLGS Nerd Font Mono"
+              "FiraCode Nerd Font Mono"
+              "DejaVu Sans Mono"
+            ];
+          };
+        };
+      };
     };
 }
