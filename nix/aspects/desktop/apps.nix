@@ -47,6 +47,8 @@
         vlc
         stremio-linux-shell
         audacity
+        pulseaudio
+        ffmpeg
 
         # Security & Password Management
         bitwarden-desktop
