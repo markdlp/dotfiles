@@ -13,6 +13,7 @@
       config.flake.modules.nixos.wsl
       config.flake.modules.nixos.dev-gnuradio
       config.flake.modules.nixos.dev-java
+      config.flake.modules.nixos.dev-antigravity
 
       # Host-specific settings
       (
