@@ -1,13 +1,16 @@
-{ ... }:
+{ inputs, ... }:
 
 {
   flake.modules.nixos.dev-devenv =
     { pkgs, ... }:
+    let
+      pkgsUnstable = inputs.nixpkgs-unstable.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+    in
     {
       # --- DEVENV & CACHIX CLI ---
-      environment.systemPackages = with pkgs; [
-        devenv
-        cachix
+      environment.systemPackages = [
+        pkgsUnstable.devenv
+        pkgsUnstable.cachix
       ];
 
       # --- DEVENV CACHIX BINARY CACHE ---
