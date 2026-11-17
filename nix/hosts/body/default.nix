@@ -14,6 +14,7 @@
       config.flake.modules.nixos.core-tmux
       config.flake.modules.nixos.desktop-gnome
       config.flake.modules.nixos.desktop-apps
+      config.flake.modules.nixos.desktop-openspace
       config.flake.modules.nixos.hardware-nvidia
       config.flake.modules.nixos.virtualisation-docker
       config.flake.modules.nixos.virtualisation-libvirt
