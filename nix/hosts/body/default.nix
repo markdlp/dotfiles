@@ -7,13 +7,11 @@
     modules = [
       ./hardware-configuration.nix
 
-      # Dendritic Aspects
-      config.flake.modules.nixos.core-base
-      config.flake.modules.nixos.core-users
-      config.flake.modules.nixos.core-zsh
-      config.flake.modules.nixos.core-tmux
+      # Core Aspects
+      config.flake.modules.nixos.core-common
       config.flake.modules.nixos.desktop-gnome
       config.flake.modules.nixos.desktop-apps
+      config.flake.modules.nixos.desktop-openspace
       config.flake.modules.nixos.hardware-nvidia
       config.flake.modules.nixos.virtualisation-docker
       config.flake.modules.nixos.virtualisation-libvirt
@@ -28,15 +26,12 @@
         {
           networking.hostName = "body";
           networking.networkmanager.enable = true;
+          systemd.services.NetworkManager-wait-online.enable = false;
 
           # Bootloader
           boot.loader.systemd-boot.enable = true;
           boot.loader.efi.canTouchEfiVariables = true;
           boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-          nix.settings.extra-platforms = [
-            "x86_64-linux"
-            "aarch64-linux"
-          ];
 
           # Whonix KVM & virtual machine definitions
           virtualisation.libvirt.connections."qemu:///system" = {

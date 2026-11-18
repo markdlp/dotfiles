@@ -6,15 +6,28 @@
     let
       system = pkgs.stdenv.hostPlatform.system;
       llmPkgs = inputs.llm-agents.packages.${system};
+      pkgsUnstable = import inputs.nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
+      };
     in
     {
-      # --- GOOGLE ANTIGRAVITY (IDE & CLI) ---
+      # --- GOOGLE ANTIGRAVITY (IDE, HUB & CLI) ---
       environment.systemPackages = [
         # Antigravity CLI (agy)
         llmPkgs.antigravity-cli
 
-        # Antigravity IDE / Hub
-        (llmPkgs.antigravity-ide or llmPkgs.antigravity-hub)
+        # Antigravity Hub (Desktop Agent Manager from llm-agents.nix)
+        llmPkgs.antigravity-hub
+
+        # Convenience alias binary for antigravity-hub
+        (pkgs.runCommand "antigravity-hub-bin" { } ''
+          mkdir -p $out/bin
+          ln -s ${llmPkgs.antigravity-hub}/bin/antigravity $out/bin/antigravity-hub
+        '')
+
+        # Antigravity IDE (VS Code-based AI editor with FHS from nixpkgs-unstable)
+        pkgsUnstable.antigravity-ide-fhs
       ];
 
       # --- NUMTIDE BINARY CACHE ---
