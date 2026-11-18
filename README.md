@@ -73,8 +73,7 @@ Deploy to remote hosts using `--target-host` and `--elevate=sudo`.
 
   ```zsh
   nixos-rebuild switch --flake ~/dotfiles/nix\#waist \
-    --target-host mark@waist.local \
-    --elevate=sudo
+    --target-host waist.local --elevate=sudo
   ```
 
   From Windows Powershell
