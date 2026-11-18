@@ -5,11 +5,8 @@
     system = "x86_64-linux";
     specialArgs = { inherit inputs; };
     modules = [
-      # Dendritic Aspects
-      config.flake.modules.nixos.core-base
-      config.flake.modules.nixos.core-users
-      config.flake.modules.nixos.core-zsh
-      config.flake.modules.nixos.core-tmux
+      # Core Aspects
+      config.flake.modules.nixos.core-common
       config.flake.modules.nixos.wsl
       config.flake.modules.nixos.dev-gnuradio
       config.flake.modules.nixos.dev-java

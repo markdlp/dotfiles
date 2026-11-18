@@ -8,11 +8,8 @@
       inputs.nixos-hardware.nixosModules.raspberry-pi-4
       ./hardware-configuration.nix
 
-      # Dendritic Aspects
-      config.flake.modules.nixos.core-base
-      config.flake.modules.nixos.core-users
-      config.flake.modules.nixos.core-zsh
-      config.flake.modules.nixos.core-tmux
+      # Core Aspects
+      config.flake.modules.nixos.core-common
       config.flake.modules.nixos.hardware-rpi
       config.flake.modules.nixos.virtualisation-docker
 

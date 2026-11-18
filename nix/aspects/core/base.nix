@@ -33,6 +33,8 @@
       nixpkgs.config.allowUnfree = true;
 
       # --- TIME & LOCALIZATION ---
+      # Hardware clock in local time prevents 2-hour backward clock jumps when dual-booting Windows
+      time.hardwareClockInLocalTime = true;
       time.timeZone = "Europe/Athens";
 
       i18n.defaultLocale = "en_US.UTF-8";
@@ -56,6 +58,7 @@
       // (
         if options.services.avahi ? settings then
           {
+            settings.server.deny-interfaces = "virbr*,docker*";
             settings.publish = {
               publish-workstation = true;
               publish-addresses = true;
@@ -64,6 +67,10 @@
           }
         else
           {
+            denyInterfaces = [
+              "virbr*"
+              "docker*"
+            ];
             publish = {
               enable = true;
               addresses = true;
@@ -71,6 +78,9 @@
             };
           }
       );
+
+      # Group required by network utilities and Avahi D-Bus policies
+      users.groups.netdev = { };
 
       # --- SECURITY & PERMISSIONS ---
       security.sudo.wheelNeedsPassword = false;
