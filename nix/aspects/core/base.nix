@@ -58,7 +58,10 @@
       // (
         if options.services.avahi ? settings then
           {
-            settings.server.deny-interfaces = "virbr*,docker*";
+            settings.server.deny-interfaces = [
+              "virbr*"
+              "docker*"
+            ];
             settings.publish = {
               publish-workstation = true;
               publish-addresses = true;
