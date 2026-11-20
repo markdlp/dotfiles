@@ -20,11 +20,11 @@
 
       environment.localBinInPath = true;
 
-      # --- FLATPAK SUPPORT (NELSON NUMERICAL SOFTWARE) ---
+      # --- FLATPAK SUPPORT (NELSON & SCILAB NUMERICAL SOFTWARE) ---
       services.flatpak.enable = true;
 
       systemd.services.flatpak-repo-flathub = {
-        description = "Configure Flathub repository and install Nelson";
+        description = "Configure Flathub repository and install Nelson & Scilab";
         wantedBy = [ "multi-user.target" ];
         after = [ "network-online.target" ];
         wants = [ "network-online.target" ];
@@ -32,6 +32,7 @@
         script = ''
           flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
           flatpak install -y --noninteractive flathub io.github.nelson_lang.Nelson || true
+          flatpak install -y --noninteractive flathub org.scilab.Scilab || true
         '';
         serviceConfig = {
           Type = "oneshot";
@@ -89,6 +90,7 @@
         localsend
         zotero
         libreoffice-qt
+        texliveFull
         hunspell
         hunspellDicts.el-gr
         hunspellDicts.en-gb-large
@@ -97,8 +99,12 @@
         freecad
         kicad
         openrocket
+        elan
         (pkgs.writeShellScriptBin "nelson" ''
           exec flatpak run io.github.nelson_lang.Nelson "$@"
+        '')
+        (pkgs.writeShellScriptBin "scilab" ''
+          exec flatpak run org.scilab.Scilab "$@"
         '')
 
         # Creative, Media & Production

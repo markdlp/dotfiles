@@ -13,6 +13,7 @@
         enable = true;
         defaultUser = "mark";
         interop.includePath = true;
+        interop.register = true;
 
         # Official Docker Desktop integration hook
         docker-desktop.enable = true;
@@ -79,6 +80,7 @@
 
       # WSL storage & volume management utilities
       environment.systemPackages = with pkgs; [
+        docker-client
         cryptsetup
         lvm2
       ];
