@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 # ==============================================================================
 # restore_ssh_keys.sh
 # Restores SSH private keys from your Bitwarden vault into ~/.ssh/ and locks
@@ -9,13 +9,13 @@
 set -euo pipefail
 
 ITEM_NAME="${1:-SSH Keys}"
-SSH_DIR="$HOME/.ssh"
+SSH_DIR="${HOME}/.ssh"
 WIN_SSH_DIR="/mnt/c/Users/mark/.ssh"
 
 mkdir -p "$SSH_DIR"
 chmod 700 "$SSH_DIR"
 
-KEYS=(
+typeset -a KEYS=(
   "id_aspire"
   "id_gh_win"
   "id_gitkraken"
@@ -49,8 +49,9 @@ fix_permissions() {
 # 1. Quick sync from Windows if keys already exist there under WSL
 if [[ -d "$WIN_SSH_DIR" && -f "$WIN_SSH_DIR/id_myWaist" ]]; then
   echo "==> Found existing SSH keys in Windows profile ($WIN_SSH_DIR)."
-  read -r -p "Do you want to sync directly from Windows .ssh? [Y/n] " response
-  response=${response:-Y}
+  printf "Do you want to sync directly from Windows .ssh? [Y/n] "
+  read -r response
+  response="${response:-Y}"
   if [[ "$response" =~ ^[Yy]$ ]]; then
     for key in "${KEYS[@]}"; do
       if [[ -f "$WIN_SSH_DIR/$key" ]]; then
@@ -72,7 +73,7 @@ if [[ -d "$WIN_SSH_DIR" && -f "$WIN_SSH_DIR/id_myWaist" ]]; then
 fi
 
 # 2. Bitwarden CLI retrieval
-if ! command -v bw &>/dev/null; then
+if ! (( $+commands[bw] )); then
   echo "Error: Bitwarden CLI ('bw') is not found in PATH." >&2
   echo "Please ensure 'bitwarden-cli' is installed (run: nixos-rebuild switch --flake ~/dotfiles/nix#wsl)." >&2
   exit 1
@@ -80,7 +81,7 @@ fi
 
 if [[ -z "${BW_SESSION:-}" ]]; then
   echo "==> BW_SESSION not detected. Unlocking Bitwarden vault..."
-  BW_SESSION=$(bw unlock --raw)
+  BW_SESSION="$(bw unlock --raw)"
   export BW_SESSION
 fi
 
@@ -88,8 +89,8 @@ echo "==> Syncing Bitwarden vault..."
 bw sync >/dev/null
 
 echo "==> Retrieving vault item '$ITEM_NAME'..."
-ITEM_JSON=$(bw get item "$ITEM_NAME")
-ITEM_ID=$(echo "$ITEM_JSON" | grep -o '"id":"[^"]*' | head -n1 | cut -d'"' -f4)
+ITEM_JSON="$(bw get item "$ITEM_NAME")"
+ITEM_ID="$(echo "$ITEM_JSON" | grep -o '"id":"[^"]*' | head -n1 | cut -d'"' -f4)"
 
 for key in "${KEYS[@]}"; do
   echo "  -> Downloading $key from Bitwarden item $ITEM_NAME..."

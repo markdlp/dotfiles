@@ -44,14 +44,14 @@ SSH keys and secrets are managed via **SecretSpec** and **Bitwarden**:
 1. **Declarative Secret Declarations (`secretspec.toml`)**:
    The root `secretspec.toml` defines secrets mapping to your Bitwarden vault items (`bw://`).
 
-2. **Zero-Disk Ephemeral Execution**:
-   Run commands with private keys temporarily injected in memory (securely deleted on exit):
+2. **Zero-Disk Ephemeral Execution (Scoped)**:
+   Run commands with private keys temporarily injected in memory (securely deleted on exit). Use scopes (`-S <target>`) so SecretSpec only resolves the secret needed for that host:
    ```zsh
    # Unlock Bitwarden vault session
    export BW_SESSION=$(bw unlock --raw)
 
-   # Run remote deployment with ephemeral key
-   secretspec run -- nixos-rebuild switch --flake ~/dotfiles/nix#waist --target-host waist.local --sudo
+   # Run remote deployment with ephemeral key targeting Waist
+   secretspec run -S waist -- nixos-rebuild switch --flake ~/dotfiles/nix#waist --target-host waist.local --sudo
 
    # Or load key straight into ssh-agent in-memory
    eval $(ssh-agent)
@@ -94,20 +94,51 @@ sudo nixos-rebuild switch --flake ~/dotfiles/nix\#wsl
 
 ##### 2. Remote Deploy to Waist (Raspberry Pi 4) via SSH
 
-Deploy to remote hosts using `--target-host` and `--sudo`.
+Deploy to remote hosts using `--target-host` and `--sudo`. Derivations are evaluated and built locally on your PC via QEMU binfmt emulation (`aarch64-linux`), then pushed to the Pi over SSH.
 
-- **Waist (Raspberry Pi 4 - `aarch64-linux`):**
-  Evaluated and built on PC via QEMU binfmt emulation, then pushed to the Pi over SSH:
+###### A. From NixOS-WSL Terminal
 
-  ```zsh
-  nixos-rebuild switch --flake ~/dotfiles/nix\#waist --target-host waist.local --sudo
-  ```
+1. **Standard Deployment** (using keys restored in `~/.ssh/` via `./scripts/restore_ssh_keys.sh`):
 
-  From Windows Powershell
+   ```zsh
+   nixos-rebuild switch --flake ~/dotfiles/nix\#waist --target-host waist.local --sudo
+   ```
 
-  ```pwsh
-  wsl -d nixos -- zsh -l -c "nixos-rebuild switch --flake ~/dotfiles/nix#waist --target-host waist.local --sudo"
-  ```
+2. **Safe Pre-flight Check (Dry Run)**:
+   Test evaluation and compilation without touching the live Pi:
+
+   ```zsh
+   # Build only (evaluates locally)
+   nixos-rebuild build --flake ~/dotfiles/nix\#waist
+
+   # Test remote activation plan without making changes
+   nixos-rebuild dry-activate --flake ~/dotfiles/nix\#waist --target-host waist.local --sudo
+   ```
+
+3. **Ephemeral SecretSpec Deployment (Zero Disk Footprint)**:
+   Injects the private key only for the duration of the deployment command:
+
+   ```zsh
+   export BW_SESSION=$(bw unlock --raw)
+   secretspec run -S waist -- nixos-rebuild switch --flake ~/dotfiles/nix\#waist --target-host waist.local --sudo
+   ```
+
+###### B. From Windows PowerShell
+
+You can trigger remote deployments directly from a Windows PowerShell prompt:
+
+1. **Standard One-Liner**:
+
+   ```powershell
+   wsl -d nixos -- zsh -l -c "nixos-rebuild switch --flake ~/dotfiles/nix#waist --target-host waist.local --sudo"
+   ```
+
+2. **With Bitwarden Vault Forwarding (SecretSpec)**:
+
+   ```powershell
+   $env:BW_SESSION = (bw unlock --raw)
+   wsl -d nixos -- zsh -l -c "BW_SESSION='$env:BW_SESSION' secretspec run -S waist -- nixos-rebuild switch --flake ~/dotfiles/nix#waist --target-host waist.local --sudo"
+   ```
 
 - **Body (Desktop Workstation - `x86_64-linux`):**
   When booted into Body (bare-metal dual-boot workstation), rebuild locally:
@@ -118,23 +149,17 @@ Deploy to remote hosts using `--target-host` and `--sudo`.
 
 > [!TIP]
 >
-> - **No local `sudo` needed**: When deploying remotely, do not run `sudo nixos-rebuild`; local `sudo` is only needed when switching the local WSL instance.
+> - **Never use local `sudo` for remote deployments**: Do not run `sudo nixos-rebuild` when using `--target-host`; local `sudo` runs as `root` and will look in `/root/.ssh` instead of your user's `~/.ssh`. Remote privilege escalation is handled safely by the `--sudo` flag on the target host.
 > - **Flags breakdown**:
->   - `--target-host`: The remote SSH target where the new system profile is activated.
->   - `--build-host`: Optional SSH builder host. Leave this unset so derivations are evaluated and built locally on your fast desktop CPU via QEMU binfmt and official binary caches, rather than burdening the Pi.
->   - `--sudo`: Runs activation commands on the remote target using `sudo` without needing root SSH logins (replaces deprecated `--use-remote-sudo`).
-> - **Host resolution & WSL2 NAT**: Remote hosts use mDNS (`.local`) managed declaratively via Avahi in `core-base`. If WSL2 in standard NAT mode cannot resolve `.local` domains, substitute the LAN IP address (e.g., `mark@192.168.1.X`), define a host alias in `~/.ssh/config`, or set `networkingMode=mirrored` in `%USERPROFILE%\.wslconfig`.
+>   - `--target-host`: The remote SSH target where the new system profile is activated (`waist.local` or `mark@waist.local`).
+>   - `--build-host`: Leave unset so derivations are built locally on your desktop CPU via QEMU binfmt emulation instead of burdening the Pi.
+>   - `--sudo`: Runs activation commands on the remote target using `sudo` without needing root SSH logins.
+> - **Host resolution fallback**: If WSL2 cannot resolve `waist.local` via mDNS, ensure `networkingMode=mirrored` is set in `%USERPROFILE%\.wslconfig`, or use the static IP alias configured in `~/.ssh/config`.
 
-##### 3. One-Liner from Windows PowerShell
-
-You can also trigger these deployments directly from a Windows PowerShell prompt:
+##### 3. Rebuild Local WSL One-Liner from Windows PowerShell
 
 ```powershell
-# Rebuild local WSL
 wsl -d nixos -u root -- zsh -l -c "nixos-rebuild switch --flake /home/mark/dotfiles/nix#wsl"
-
-# Remote rebuild Waist (Pi 4)
-wsl -d nixos -- zsh -l -c "nixos-rebuild switch --flake /home/mark/dotfiles/nix#waist --target-host mark@waist.local --sudo"
 ```
 
 #### On-Device Local Rebuild (Fallback)
