@@ -37,6 +37,34 @@ Windows dotfiles and software packages are managed with **chezmoi** and **winget
    powershell -File "$HOME\restore_ssh_keys.ps1"
    ```
 
+### Linux & NixOS-WSL Setup (SecretSpec & Bitwarden)
+
+SSH keys and secrets are managed via **SecretSpec** and **Bitwarden**:
+
+1. **Declarative Secret Declarations (`secretspec.toml`)**:
+   The root `secretspec.toml` defines secrets mapping to your Bitwarden vault items (`bw://`).
+
+2. **Zero-Disk Ephemeral Execution**:
+   Run commands with private keys temporarily injected in memory (securely deleted on exit):
+   ```zsh
+   # Unlock Bitwarden vault session
+   export BW_SESSION=$(bw unlock --raw)
+
+   # Run remote deployment with ephemeral key
+   secretspec run -- nixos-rebuild switch --flake ~/dotfiles/nix#waist --target-host waist.local --sudo
+
+   # Or load key straight into ssh-agent in-memory
+   eval $(ssh-agent)
+   secretspec get SSH_KEY_WAIST | ssh-add -
+   ```
+
+3. **Local SSH Key Restoration**:
+   To sync or restore private keys into `~/.ssh/` with strict permissions (`chmod 600`):
+   ```zsh
+   ./scripts/restore_ssh_keys.sh
+   ```
+
+
 ## NixOS & Dendritic Pattern
 
 The `nix/` folder contains declarative system configurations for all Nix machines organized using the **Dendritic Pattern** with [flake-parts](https://github.com/hercules-ci/flake-parts) and [import-tree](https://github.com/denful/import-tree).

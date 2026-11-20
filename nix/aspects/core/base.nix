@@ -116,6 +116,10 @@
         zip
         wget
         curl
+
+        # Secrets management & credentials
+        bitwarden-cli
+        secretspec
       ];
     };
 }
